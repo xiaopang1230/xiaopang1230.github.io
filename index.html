@@ -156,6 +156,459 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-操作系统笔记01——死锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B001%E2%80%94%E2%80%94%E6%AD%BB%E9%94%81/">操作系统笔记01——死锁</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B001%E2%80%94%E2%80%94%E6%AD%BB%E9%94%81/" class="archive-article-date">
+  	<time datetime="2020-04-21T14:55:41.526Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li>必要条件</li>
+<li>处理方法<ul>
+<li>鸵鸟策略</li>
+<li>死锁检测与死锁恢复<ul>
+<li>1.每种类型一个资源的死锁检测</li>
+<li>2.每种类型多个资源的死锁检测</li>
+<li>3.死锁恢复</li>
+</ul>
+</li>
+<li>死锁预防<ul>
+<li>1.破坏互斥条件</li>
+<li>2.破坏占有和等待条件</li>
+<li>3.破坏不可抢占条件</li>
+<li>4.破坏环路等待</li>
+</ul>
+</li>
+<li>死锁避免<ul>
+<li>1.安全状态</li>
+<li>2.单个资源的银行家算法</li>
+<li>3.多个资源的银行家算法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="1-必要条件"><a href="#1-必要条件" class="headerlink" title="1.必要条件"></a>1.必要条件</h1><ul>
+<li><p>互斥：每个资源要么已经分配给了一个进程，要么就是可用的。</p>
+</li>
+<li><p>占有和等待：已经得到了某个资源的进程可以再请求新的资源。</p>
+</li>
+<li><p>不可抢占：已经分配给一个进程的资源不能强制性地被抢占，它只能被占有它的进程显式地释放。</p>
+</li>
+<li><p>环路等待：有两个或者两个以上的进程组成一条环路，该环路中的每个进程都在等待下一个进程所占有的资源。</p>
+</li>
+</ul>
+<h1 id="2-处理方法"><a href="#2-处理方法" class="headerlink" title="2.处理方法"></a>2.处理方法</h1><h2 id="2-1-鸵鸟策略"><a href="#2-1-鸵鸟策略" class="headerlink" title="2.1.鸵鸟策略"></a>2.1.鸵鸟策略</h2><ul>
+<li><p>定义：忽略死锁，就像鸵鸟把头埋在沙子里，假装根本没发生问题。</p>
+</li>
+<li><p>适用场景：</p>
+<ul>
+<li>a）解决死锁问题的代价很高</li>
+<li>b）发生死锁时不会对用户造成多大影响</li>
+<li>c）发生死锁的概率很低(资源充足)</li>
+</ul>
+</li>
+<li><p>Tips：大多数操作系统，包括 Unix，Linux 和 Windows，处理死锁问题的办法仅仅是忽略它。</p>
+</li>
+</ul>
+<h2 id="2-2-死锁检测与死锁恢复"><a href="#2-2-死锁检测与死锁恢复" class="headerlink" title="2.2.死锁检测与死锁恢复"></a>2.2.死锁检测与死锁恢复</h2><ul>
+<li>定义：不试图阻止死锁，而是当检测到死锁发生时，采取措施进行恢复。</li>
+</ul>
+<h3 id="每种类型一个资源的死锁检测"><a href="#每种类型一个资源的死锁检测" class="headerlink" title="每种类型一个资源的死锁检测"></a>每种类型一个资源的死锁检测</h3><ul>
+<li><p>通过检测有向图是否存在环来实现</p>
+<p>   从一个节点出发进行深度优先搜索，对访问过的节点进行标记，如果访问了已经标记的节点，就表示有向图存在环，也就是检测到死锁的发生。</p>
+</li>
+</ul>
+<h3 id="每种类型多个资源的死锁检测"><a href="#每种类型多个资源的死锁检测" class="headerlink" title="每种类型多个资源的死锁检测"></a>每种类型多个资源的死锁检测</h3><ul>
+<li>EACR算法<br>每个进程最开始时都不被标记，执行过程有可能被标记。当算法结束时，任何没有被标记的进程都是死锁进程。 </li>
+</ul>
+<h3 id="每种类型多个资源的死锁检测-1"><a href="#每种类型多个资源的死锁检测-1" class="headerlink" title="每种类型多个资源的死锁检测"></a>每种类型多个资源的死锁检测</h3><ul>
+<li><a href="[https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E6%AD%BB%E9%94%81.md#2-%E6%AF%8F%E7%A7%8D%E7%B1%BB%E5%9E%8B%E5%A4%9A%E4%B8%AA%E8%B5%84%E6%BA%90%E7%9A%84%E6%AD%BB%E9%94%81%E6%A3%80%E6%B5%8B](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E6%AD%BB%E9%94%81.md#2-%E6%AF%8F%E7%A7%8D%E7%B1%BB%E5%9E%8B%E5%A4%9A%E4%B8%AA%E8%B5%84%E6%BA%90%E7%9A%84%E6%AD%BB%E9%94%81%E6%A3%80%E6%B5%8B)">EACR算法</a><br>每个进程最开始时都不被标记，执行过程有可能被标记。当算法结束时，任何没有被标记的进程都是死锁进程。 </li>
+</ul>
+<h3 id="死锁恢复"><a href="#死锁恢复" class="headerlink" title="死锁恢复"></a>死锁恢复</h3><ul>
+<li>利用抢占恢复</li>
+<li>利用回滚恢复</li>
+<li>通过杀死进程恢复</li>
+</ul>
+<h2 id="2-3-死锁预防"><a href="#2-3-死锁预防" class="headerlink" title="2.3.死锁预防"></a>2.3.死锁预防</h2><ul>
+<li><p>定义：在程序运行之前预防发生死锁。</p>
+</li>
+<li><p>预防方法：</p>
+<ul>
+<li>a）破坏互斥条件<br>打印机守护进程允许多个进程同时输出</li>
+<li>b）破坏占有和等待条件<br>一次性申请全部资源，再进行占有</li>
+<li>c）破坏不可抢占条件<br>允许抢夺其他进程的资源</li>
+<li>d) 破坏环路等待<br>资源统一编号，按照编号顺序来进行请求（哲学家进餐问题解决思路——破坏环路等待，给筷子编号，并且只允许先从编号小的筷子开始申请）</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-4-死锁避免"><a href="#2-4-死锁避免" class="headerlink" title="2.4.死锁避免"></a>2.4.死锁避免</h2><ul>
+<li><p>定义：在程序运行时避免发生死锁。</p>
+</li>
+<li><p>方法：</p>
+<ul>
+<li>a）<a href="[https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E6%AD%BB%E9%94%81.md#1-%E5%AE%89%E5%85%A8%E7%8A%B6%E6%80%81](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E6%AD%BB%E9%94%81.md#1-%E5%AE%89%E5%85%A8%E7%8A%B6%E6%80%81)">安全状态算法</a>——Has Max矩阵 存在合法调度顺序的为安全状态</li>
+<li>b）单个资源的银行家算法</li>
+<li>c）多个资源的银行家算法</li>
+</ul>
+</li>
+</ul>
+<h2 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h2><p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E6%AD%BB%E9%94%81.md" target="_blank" rel="noopener">https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E6%AD%BB%E9%94%81.md</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B001%E2%80%94%E2%80%94%E6%AD%BB%E9%94%81/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CS-Notes:Leetcode 题解 - 树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/21/CS-Notes:Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E6%A0%91/">CS-Notes:Leetcode 题解 - 树</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/21/CS-Notes:Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E6%A0%91/" class="archive-article-date">
+  	<time datetime="2020-04-21T14:55:17.007Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CS-Notes/Leetcode 题解 - 树</p>
+<pre><code>首先感谢CyC2018的详细笔记，这段时间受益匪浅，从一个更高的角度知道了数据结构与算法的关系——算法依赖于数据结构，就像是建筑材料与设计图纸的关系，特定的材料适合于实现某种独特的设计，一些材料可以实现许多设计方案，但是在价格、耐久度、美观方面各有优劣。
+
+我们学习算法与数据结构的过程，不仅仅要认识数据结构的用途、算法的用途，更要在题海翻腾出感觉之后，去思考其之间的联系，去尝试着从问题的角度出发，考虑可行的算法中最为高效的那种，再考虑实现该算法的结构中空间复杂度最低的那一种。当你养成这种习惯去做题，乃至思考，你就会发现其中的乐趣的~
+
+先从最基本的数据结构之一——树开始讲起吧~</code></pre><p>定义<br>    树（树状图），是一种数据结构，由n(n&gt;=0)个有限节点组成的一个无环且有层次结构的集合。每个结点有零个或多个子结点；没有父结点的结点称为根结点；每一个非根结点有且只有一个父结点；除了根结点外，每个子结点可以分为多个不相交的子树。</p>
+<p>树的特性——递归<br>    无论是二叉树还是多叉树，都会有一个很明显的特点——递归性，也就是说我们无论去看哪一个树的任意一个节点，自其往下仍旧组成一棵树。也就是说我们如果能够定义一种方法，将所有类型的树（空树、左右子树均为空、仅单边子树为空、左右子树都不为空）的情况都考虑进去，那这个方法就能递归地调用自身，通过若干次递归实现对这棵树的每一棵子树的进行相同的操作——统计、打印、查询、判定乃至改变其自身结构等等。</p>
+<p>树的题型（用途）<br>1.递归（实现判定、统计、查询）<br>2.遍历（递归与非递归方式）<br>3.特殊树结构的用法<br>    3.1.BST<br>    3.2.Trie</p>
+<p>1.递归<br>    树的递归题型，更多的是让我们对其特有结构带来的递归特性有一个直观而全面的认识，培养自己的递归思维意识。一开始拿到树的递归题目，你可能会束手无策，这主要是你还没有养成“只看一棵树”。接下来我们从最近公共祖先这道题开始，学习这种思维模式。</p>
+<p>LeetCode 面试题68-II<br>接下来的这张图，就是我们求解递归问题的一棵树模型——根节点root,左子树left,右子树right</p>
+<p>“一棵树”<br>需要求解p、q的最近公共祖先，我们就尝试从pq节点存在于这棵树的位置的不同来进行分类讨论</p>
+<pre><code>1.永远先考虑root是否为null，即使题目要求里面说了树不为空，你的递归仍然有可能不可避免的要到达叶子节点的左右子树，一旦你的递归终止条件需要靠判定节点是否为空来完成的话，就一定要考虑root为null的情况。显然，这里当root == null 时，显然这三部分都没有我们要的最近公共祖先，我们对这样的root返回null。
+
+我们需要求解的是pq的公共祖先，就这个目标来讲，pq的优先级是相同的，所以我们在分析的时候尝试用：一个目标节点，另一个目标节点来思考，避免陷入无意义的对称分析之中。</code></pre><p>2.对于非空节点root，只有两种情况——是一个目标节点（p或q），不是目标节点</p>
+<pre><code>2.1.如果它是某一个目标节点，那么另一个目标节点一定在左子树或者右子树上。这里说明一下，因为我们是从根节点开始逐层向下递归，所以遇到的第一个p或者q，剩下的节点只可能在root下面，此时root就是我们需要求解的最近公共祖先
+
+2.2.如果它不是目标节点，那么pq就存在三种可能——a)左右子树上各一个    b)左子树或者右子树上独占两个    c)左右子树上都没有目标节点，此时我们递归地去求解左子树、右子树，将返回结果保存下来，如果一棵子树上没有pq，那么一定会返回null，反之返回值为p或者q
+
+        对于情况a)，显然root就是我们要求解的结果；
+
+        对于情况b), 以上递归的返回结果一定有一个为空，另一个返回的就是含有p、q的子树的递归结果；
+
+        对于情况c), 很显然这一整棵树都不是我们要求解的树，直接返回null就行</code></pre><p>补充：虽然题目没有明确说明pq是否可以为空，本着全面思考的方针，在进行一个补充讨论——pq只要有任意一个为空，最有求解的结果一定是空</p>
+<p>代码：</p>
+<p> public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {</p>
+<pre><code>if(root == null || p == null || q == null)return null;
+
+if(root == p || root == q)return root;
+
+TreeNode leftResult = lowestCommonAncestor(root.left, p, q);
+
+TreeNode rightResult = lowestCommonAncestor(root.right, p ,q);
+
+if(leftResult != null &amp;&amp; rightResult != null)return root;
+
+else{
+
+    if(leftResult == null)return rightResult;
+
+    if(rightResult == null)return leftResult;
+
+}
+
+return null;</code></pre><p>}</p>
+<pre><code>总结：先分析根节点root的所有情况，能在root处进行返回的要提前返回，不能的再交由左右子树的递归去解决，只分析这三个部分，递归的分析就用简写的函数表达式代替就行（默认你已经实现了递归，直接调用）。
+
+结尾再分享一个关于该题的视频，本文的分析思路也源于此，所谓吃透题目，就是掌握树的递归特性和“一棵树”模型的思维模式。</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/21/CS-Notes:Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E6%A0%91/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JavaTips01——Java自定义比较的实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/21/JavaTips01%E2%80%94%E2%80%94Java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AF%94%E8%BE%83%E7%9A%84%E5%AE%9E%E7%8E%B0/">JavaTips01——Java自定义比较的实现</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/21/JavaTips01%E2%80%94%E2%80%94Java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AF%94%E8%BE%83%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
+  	<time datetime="2020-04-21T14:54:16.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
+<li><a href="https://blog.csdn.net/qq_41376740/article/details/79882370" target="_blank" rel="noopener">java基础__comaprable和comparator的区别</a></li>
+<li><a href="https://www.cnblogs.com/kelly-one/p/8324775.html" target="_blank" rel="noopener">TreeSet之定制排序和自然排序</a></li>
+</ul>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><ul>
+<li>如果给你一个一维整型数组int[] array，使用Java进行升序排序怎么做？  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 直接使用sort进行排序</span><br><span class="line">Arrays.sort(array)</span><br></pre></td></tr></table></figure></li>
+<li>降序呢？</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 自定义Comparator</span><br><span class="line">Arrays.sort(array，new Comparator&lt;Integer&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public int compare(int o1, int o2) &#123;</span><br><span class="line">                return o2-o1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>还有别的方法么？答：实现Comparable接口，对于基本数据类型不太适用（麻烦）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 可以在自定义类上实现Comparable接口，重写compareTo方法，</span><br><span class="line">&#x2F;&#x2F; 并且有必要重写了object的equals、tostring、hashcode方法，这是一个好习惯</span><br><span class="line">public class Employee implements Comparable&lt;Employee&gt;</span><br></pre></td></tr></table></figure></li>
+<li>给你一个二维数组int[n][2]，先按照每行的第1个元素进行降序排序，如果相同则按照第0个元素降序排列，怎么实现？</li>
+<li>。。。</li>
+</ul>
+<p>今天笔试遇到的一道多维数组自定义排序问题，题目本身不难，核心就在于上述第四个问题的实现，编写代码的困难也让我意识到自己对于Java自定义比较的实现理解不够深，所以决定仔细梳理一下。</p>
+<p>java核心技术I  13.2.5 对象的比较</p>
+<p>书中以举例子的形式说明了TreeSet的自定义类对象元素如何进行自定义排序的方法，总结如下：</p>
+<h2 id="Comparable"><a href="#Comparable" class="headerlink" title="Comparable"></a>Comparable</h2><ul>
+<li><p>定义：Comparable是一个排序方法接口，通过重写实现接口的compareTo方法，实现自定义类的自定义规则比较</p>
+<ul>
+<li>也就是说，你可以对两个对象的若干个属性进行比较，用比较的结果作为这两个对象的比较结果</li>
+<li>重写完成之后，sort会自己去找到这个重写的方法，按照你规定的方式进行排序</li>
+</ul>
+</li>
+<li><p>适用场景：自定义类对象的集合排序</p>
+</li>
+<li><p>优点：</p>
+<ul>
+<li>将自定义类的比较拆解成为其内部属性对应类型的逐级比较，代码编写上更为清晰直观（你想倒序的话乘以result *= -1返回即可）</li>
+</ul>
+</li>
+<li><p>举例子</p>
+<ul>
+<li>TreeSet <Employee><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">public class Employee implements Comparable&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(Employee other) </span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F; 这里并不是递归，而是通过自定义类Employee 的属性name调用该属性类的compareTo</span><br><span class="line">        &#x2F;&#x2F; Employee compareTo ——&gt; String compareTo</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; String compareTo 相等——&gt; Integer compare</span><br><span class="line">        &#x2F;&#x2F; 从这里也能看出来String作为重要的非基本类型数据，java专门为其重写了compareTo方法，已知String的底层实现是固定长度的char数组，我们可推知String的比较终归要落到对char数组的逐位比较（字典序的实现）</span><br><span class="line">        &#x2F;&#x2F; String compareTo——&gt; </span><br><span class="line">        &#x2F;&#x2F; StringLatin1.compareTo——&gt; </span><br><span class="line">        &#x2F;&#x2F; compareTo(byte[] value, byte[] other, int len1, int len2)——&gt; </span><br><span class="line">        &#x2F;&#x2F; return getChar(value, k) - getChar(other, k)</span><br><span class="line">        int result &#x3D; this.name.compareTo(other.getName());</span><br><span class="line">        if (result &#x3D;&#x3D; 0) </span><br><span class="line">        &#123;</span><br><span class="line">            result &#x3D; Integer.compare(this.getAge(), other.getAge());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line">    private MyDate birthday;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 忽略访问器的代码</span><br><span class="line">    ··· ···</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;Employee&#123;&quot; +</span><br><span class="line">                &quot;name&#x3D;&#39;&quot; + name + &#39;\&#39;&#39; +</span><br><span class="line">                &quot;, age&#x3D;&quot; + age +</span><br><span class="line">                &quot;, birthday&#x3D;&quot; + birthday +</span><br><span class="line">                &#39;&#125;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean equals(Object o) &#123;</span><br><span class="line">        if (this &#x3D;&#x3D; o) return true;</span><br><span class="line">        if (o &#x3D;&#x3D; null || getClass() !&#x3D; o.getClass()) return false;</span><br><span class="line"></span><br><span class="line">        Employee employee &#x3D; (Employee) o;</span><br><span class="line"></span><br><span class="line">        if (age !&#x3D; employee.age) return false;</span><br><span class="line">        if (name !&#x3D; null ? !name.equals(employee.name) : employee.name !&#x3D; null) return false;</span><br><span class="line">        return birthday !&#x3D; null ? birthday.equals(employee.birthday) : employee.birthday &#x3D;&#x3D; null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int hashCode() &#123;</span><br><span class="line">        int result &#x3D; name !&#x3D; null ? name.hashCode() : 0;</span><br><span class="line">        result &#x3D; 31 * result + age;</span><br><span class="line">        result &#x3D; 31 * result + (birthday !&#x3D; null ? birthday.hashCode() : 0);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Tips:自定义类除了重写compareTo，还有必要重写toString、equals、hashCode，用以实现自定义类对象的判等（Hash类结构的存储与查询需要用到）、输出</p>
+</li>
+</ul>
+<h2 id="Comparator方法接口——定制比较器"><a href="#Comparator方法接口——定制比较器" class="headerlink" title="Comparator方法接口——定制比较器"></a>Comparator方法接口——定制比较器</h2><ul>
+<li><p>定义：它不是类内部实现，而是专门另外找一个实现Comparator接口的类，在这个类里面重写compare方法，将这个类的对象传递。ArrayList.sort方法就需要这样的一个定制比较器.</p>
+</li>
+<li><p>适用场景：多维基本类型数组的复杂排序（不适合在基本类型数据类的内部重写compareTo方法）</p>
+</li>
+<li><p>优点：符合开闭原则——无需实现接口，避免在类内部修改</p>
+</li>
+<li><p>举例子</p>
+<ul>
+<li>多维基本类型数组的复杂排序——上文提到的第四个问题<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 我们向sort函数传入一个Comparator方法接口类型的对象，这是一个方法接口，</span><br><span class="line">&#x2F;&#x2F; 里面有一个可重写的compare方法（这里涉及到泛型擦除，后续深入探究一下）</span><br><span class="line">Arrays.sort(test, new Comparator&lt;int[]&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public int compare(int[] o1, int[] o2) &#123;</span><br><span class="line">                &#x2F;&#x2F; 如果第一个元素相等，我们就返回每个子数组第0个元素的降序排列</span><br><span class="line">                &#x2F;&#x2F; 记住 return o1-o2; 是升序  return o2-o1; 是降序，就算是复杂元素的比较也会被拆解为若干个基本类型的比较</span><br><span class="line">                if (o1[1]&#x3D;&#x3D;o2[1])return o2[0]-o1[0];</span><br><span class="line">                &#x2F;&#x2F; 否则返回每个子数组第1个元素的降序排列</span><br><span class="line">                return o2[1]-o1[1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ul>
+<li><p>都是接口，Comparable需要被某个类实现并在内部重写方法，Comparator可通过传参的方式在外部实现排序功能。</p>
+</li>
+<li><p>Comparable功能强大，可以为自定义类的自然排序乃至定制排序提供需要的排序功能，在涉及自定义类的多个属性的复杂规则的排序情况中，是更好的选择。</p>
+</li>
+<li><p>Comparator更为灵活，自已在不修改自定义类的定义的情况下进行类外的排序，符合开闭原则</p>
+</li>
+<li><p>总而言之，还是需要根据场景，仔细考量两者带来的收益与风险，选择更为合适的方法完成排序功能</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/21/JavaTips01%E2%80%94%E2%80%94Java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AF%94%E8%BE%83%E7%9A%84%E5%AE%9E%E7%8E%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Vue+Django表单发送文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/21/Vue+Django%E8%A1%A8%E5%8D%95%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6/">Vue+Django表单发送文件</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/21/Vue+Django%E8%A1%A8%E5%8D%95%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6/" class="archive-article-date">
+  	<time datetime="2020-04-21T14:53:18.072Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>场景：有一个文件，该文件被选择后不能立即发送，而是需要作为一个附件随表单一起发送到Django后端</p>
+<h2 id="1-设置el-input的name属性"><a href="#1-设置el-input的name属性" class="headerlink" title="1.设置el-input的name属性"></a>1.设置el-input的name属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-form-item label&#x3D;&quot;附件&quot; prop&#x3D;&quot;file&quot;&gt;</span><br><span class="line">      &lt;el-input type&#x3D;&quot;file&quot; value&#x3D;&quot;ruleForm.messageFile&quot; v-model&#x3D;&quot;ruleForm.messageFile&quot; name&#x3D;&quot;file&quot;&gt;&lt;&#x2F;el-input&gt;</span><br><span class="line">&lt;&#x2F;el-form-item&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="2-使用getElementsByName获取附件对象"><a href="#2-使用getElementsByName获取附件对象" class="headerlink" title="2.使用getElementsByName获取附件对象"></a>2.使用getElementsByName获取附件对象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let fileObj &#x3D; document.getElementsByName(&#39;file&#39;)[0].files[0];</span><br><span class="line">let formData &#x3D; new FormData();</span><br><span class="line">formData.append(&#39;annex&#39;, fileObj);</span><br></pre></td></tr></table></figure>
+<h2 id="3-将附件对象加入formData"><a href="#3-将附件对象加入formData" class="headerlink" title="3.将附件对象加入formData"></a>3.将附件对象加入formData</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">axios.post(&quot;&#x2F;api&#x2F;notice&#x2F;createMessage&#x2F;&quot;, formData,&#123;</span><br><span class="line">        headers:&#123;&quot;Content-Type&quot;:&quot;application&#x2F;json;charset&#x3D;utf-8&quot;&#125; &#125;)</span><br><span class="line">        .then(function (response) &#123;</span><br><span class="line">               if(response.status &#x3D;&#x3D; &#39;201&#39;)&#123;</span><br><span class="line">                        this.$message(&#123;</span><br><span class="line">                                type: &#39;success&#39;,</span><br><span class="line">                                message: &quot;表单发送成功&quot;</span><br><span class="line">                         &#125;);</span><br><span class="line">                         window.location.reload();</span><br><span class="line">                 &#125;</span><br><span class="line">                 else&#123;</span><br><span class="line">                        this.$message(&#123;</span><br><span class="line">                               type: &#39;error&#39;,</span><br><span class="line">                               message: response.data</span><br><span class="line">                        &#125;);</span><br><span class="line">                  &#125;&#125;</span><br><span class="line">        .bind(this)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/21/Vue+Django%E8%A1%A8%E5%8D%95%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hexo博客实战——hexo+yilia" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

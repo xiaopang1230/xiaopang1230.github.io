@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>hexo博客实战——hexo+yilia | SimonYi&#39;s Blog</title>
+  <title>JavaTips01——Java自定义比较的实现 | SimonYi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="实战视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Yb411a7ty1.部署环境1.1.安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）1.2.Mac打开终端，切换到root权限1sudo su    1.2.1 安装淘宝镜像源，确保包下载速度1npm install -g cnpm -- registry&#x3D;https:&#x2F;&#x2F;registry">
+  <meta name="description" content="参考文章 java基础__comaprable和comparator的区别 TreeSet之定制排序和自然排序  场景 如果给你一个一维整型数组int[] array，使用Java进行升序排序怎么做？  12&#x2F;&#x2F; 直接使用sort进行排序Arrays.sort(array) 降序呢？  1234567&#x2F;&#x2F; 自定义ComparatorArrays.sort(a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo博客实战——hexo+yilia">
-<meta property="og:url" content="http://yoursite.com/2020/04/17/hexo%E5%8D%9A%E5%AE%A2%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94hexo+yilia/index.html">
+<meta property="og:title" content="JavaTips01——Java自定义比较的实现">
+<meta property="og:url" content="http://yoursite.com/2020/04/21/JavaTips01%E2%80%94%E2%80%94Java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AF%94%E8%BE%83%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="SimonYi&#39;s Blog">
-<meta property="og:description" content="实战视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Yb411a7ty1.部署环境1.1.安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）1.2.Mac打开终端，切换到root权限1sudo su    1.2.1 安装淘宝镜像源，确保包下载速度1npm install -g cnpm -- registry&#x3D;https:&#x2F;&#x2F;registry">
+<meta property="og:description" content="参考文章 java基础__comaprable和comparator的区别 TreeSet之定制排序和自然排序  场景 如果给你一个一维整型数组int[] array，使用Java进行升序排序怎么做？  12&#x2F;&#x2F; 直接使用sort进行排序Arrays.sort(array) 降序呢？  1234567&#x2F;&#x2F; 自定义ComparatorArrays.sort(a">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-17T02:58:58.609Z">
-<meta property="article:modified_time" content="2020-04-17T02:58:58.609Z">
+<meta property="article:published_time" content="2020-04-21T14:54:16.804Z">
+<meta property="article:modified_time" content="2020-04-21T14:54:37.614Z">
 <meta property="article:author" content="Simon Yi">
 <meta name="twitter:card" content="summary">
   
@@ -158,85 +158,91 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hexo博客实战——hexo+yilia" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JavaTips01——Java自定义比较的实现" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      hexo博客实战——hexo+yilia
+      JavaTips01——Java自定义比较的实现
     </h1>
   
 
         
-        <a href="/2020/04/17/hexo%E5%8D%9A%E5%AE%A2%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94hexo+yilia/" class="archive-article-date">
-  	<time datetime="2020-04-17T02:58:58.609Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
+        <a href="/2020/04/21/JavaTips01%E2%80%94%E2%80%94Java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AF%94%E8%BE%83%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
+  	<time datetime="2020-04-21T14:54:16.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="实战视频地址：https-www-bilibili-com-video-BV1Yb411a7ty"><a href="#实战视频地址：https-www-bilibili-com-video-BV1Yb411a7ty" class="headerlink" title="实战视频地址：https://www.bilibili.com/video/BV1Yb411a7ty"></a><strong>实战视频地址：</strong><a href="https://www.bilibili.com/video/BV1Yb411a7ty" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1Yb411a7ty</a></h3><h2 id="1-部署环境"><a href="#1-部署环境" class="headerlink" title="1.部署环境"></a>1.部署环境</h2><h3 id="1-1-安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）"><a href="#1-1-安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）" class="headerlink" title="1.1.安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）"></a>1.1.安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）</h3><h3 id="1-2-Mac打开终端，切换到root权限"><a href="#1-2-Mac打开终端，切换到root权限" class="headerlink" title="1.2.Mac打开终端，切换到root权限"></a>1.2.Mac打开终端，切换到root权限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
+        <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
+<li><a href="https://blog.csdn.net/qq_41376740/article/details/79882370" target="_blank" rel="noopener">java基础__comaprable和comparator的区别</a></li>
+<li><a href="https://www.cnblogs.com/kelly-one/p/8324775.html" target="_blank" rel="noopener">TreeSet之定制排序和自然排序</a></li>
+</ul>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><ul>
+<li>如果给你一个一维整型数组int[] array，使用Java进行升序排序怎么做？  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 直接使用sort进行排序</span><br><span class="line">Arrays.sort(array)</span><br></pre></td></tr></table></figure></li>
+<li>降序呢？</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 自定义Comparator</span><br><span class="line">Arrays.sort(array，new Comparator&lt;Integer&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public int compare(int o1, int o2) &#123;</span><br><span class="line">                return o2-o1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>还有别的方法么？答：实现Comparable接口，对于基本数据类型不太适用（麻烦）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 可以在自定义类上实现Comparable接口，重写compareTo方法，</span><br><span class="line">&#x2F;&#x2F; 并且有必要重写了object的equals、tostring、hashcode方法，这是一个好习惯</span><br><span class="line">public class Employee implements Comparable&lt;Employee&gt;</span><br></pre></td></tr></table></figure></li>
+<li>给你一个二维数组int[n][2]，先按照每行的第1个元素进行降序排序，如果相同则按照第0个元素降序排列，怎么实现？</li>
+<li>。。。</li>
+</ul>
+<p>今天笔试遇到的一道多维数组自定义排序问题，题目本身不难，核心就在于上述第四个问题的实现，编写代码的困难也让我意识到自己对于Java自定义比较的实现理解不够深，所以决定仔细梳理一下。</p>
+<p>java核心技术I  13.2.5 对象的比较</p>
+<p>书中以举例子的形式说明了TreeSet的自定义类对象元素如何进行自定义排序的方法，总结如下：</p>
+<h2 id="Comparable"><a href="#Comparable" class="headerlink" title="Comparable"></a>Comparable</h2><ul>
+<li><p>定义：Comparable是一个排序方法接口，通过重写实现接口的compareTo方法，实现自定义类的自定义规则比较</p>
+<ul>
+<li>也就是说，你可以对两个对象的若干个属性进行比较，用比较的结果作为这两个对象的比较结果</li>
+<li>重写完成之后，sort会自己去找到这个重写的方法，按照你规定的方式进行排序</li>
+</ul>
+</li>
+<li><p>适用场景：自定义类对象的集合排序</p>
+</li>
+<li><p>优点：</p>
+<ul>
+<li>将自定义类的比较拆解成为其内部属性对应类型的逐级比较，代码编写上更为清晰直观（你想倒序的话乘以result *= -1返回即可）</li>
+</ul>
+</li>
+<li><p>举例子</p>
+<ul>
+<li>TreeSet <Employee><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">public class Employee implements Comparable&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(Employee other) </span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F; 这里并不是递归，而是通过自定义类Employee 的属性name调用该属性类的compareTo</span><br><span class="line">        &#x2F;&#x2F; Employee compareTo ——&gt; String compareTo</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; String compareTo 相等——&gt; Integer compare</span><br><span class="line">        &#x2F;&#x2F; 从这里也能看出来String作为重要的非基本类型数据，java专门为其重写了compareTo方法，已知String的底层实现是固定长度的char数组，我们可推知String的比较终归要落到对char数组的逐位比较（字典序的实现）</span><br><span class="line">        &#x2F;&#x2F; String compareTo——&gt; </span><br><span class="line">        &#x2F;&#x2F; StringLatin1.compareTo——&gt; </span><br><span class="line">        &#x2F;&#x2F; compareTo(byte[] value, byte[] other, int len1, int len2)——&gt; </span><br><span class="line">        &#x2F;&#x2F; return getChar(value, k) - getChar(other, k)</span><br><span class="line">        int result &#x3D; this.name.compareTo(other.getName());</span><br><span class="line">        if (result &#x3D;&#x3D; 0) </span><br><span class="line">        &#123;</span><br><span class="line">            result &#x3D; Integer.compare(this.getAge(), other.getAge());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line">    private MyDate birthday;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 忽略访问器的代码</span><br><span class="line">    ··· ···</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;Employee&#123;&quot; +</span><br><span class="line">                &quot;name&#x3D;&#39;&quot; + name + &#39;\&#39;&#39; +</span><br><span class="line">                &quot;, age&#x3D;&quot; + age +</span><br><span class="line">                &quot;, birthday&#x3D;&quot; + birthday +</span><br><span class="line">                &#39;&#125;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean equals(Object o) &#123;</span><br><span class="line">        if (this &#x3D;&#x3D; o) return true;</span><br><span class="line">        if (o &#x3D;&#x3D; null || getClass() !&#x3D; o.getClass()) return false;</span><br><span class="line"></span><br><span class="line">        Employee employee &#x3D; (Employee) o;</span><br><span class="line"></span><br><span class="line">        if (age !&#x3D; employee.age) return false;</span><br><span class="line">        if (name !&#x3D; null ? !name.equals(employee.name) : employee.name !&#x3D; null) return false;</span><br><span class="line">        return birthday !&#x3D; null ? birthday.equals(employee.birthday) : employee.birthday &#x3D;&#x3D; null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int hashCode() &#123;</span><br><span class="line">        int result &#x3D; name !&#x3D; null ? name.hashCode() : 0;</span><br><span class="line">        result &#x3D; 31 * result + age;</span><br><span class="line">        result &#x3D; 31 * result + (birthday !&#x3D; null ? birthday.hashCode() : 0);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Tips:自定义类除了重写compareTo，还有必要重写toString、equals、hashCode，用以实现自定义类对象的判等（Hash类结构的存储与查询需要用到）、输出</p>
+</li>
+</ul>
+<h2 id="Comparator方法接口——定制比较器"><a href="#Comparator方法接口——定制比较器" class="headerlink" title="Comparator方法接口——定制比较器"></a>Comparator方法接口——定制比较器</h2><ul>
+<li><p>定义：它不是类内部实现，而是专门另外找一个实现Comparator接口的类，在这个类里面重写compare方法，将这个类的对象传递。ArrayList.sort方法就需要这样的一个定制比较器.</p>
+</li>
+<li><p>适用场景：多维基本类型数组的复杂排序（不适合在基本类型数据类的内部重写compareTo方法）</p>
+</li>
+<li><p>优点：符合开闭原则——无需实现接口，避免在类内部修改</p>
+</li>
+<li><p>举例子</p>
+<ul>
+<li>多维基本类型数组的复杂排序——上文提到的第四个问题<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 我们向sort函数传入一个Comparator方法接口类型的对象，这是一个方法接口，</span><br><span class="line">&#x2F;&#x2F; 里面有一个可重写的compare方法（这里涉及到泛型擦除，后续深入探究一下）</span><br><span class="line">Arrays.sort(test, new Comparator&lt;int[]&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public int compare(int[] o1, int[] o2) &#123;</span><br><span class="line">                &#x2F;&#x2F; 如果第一个元素相等，我们就返回每个子数组第0个元素的降序排列</span><br><span class="line">                &#x2F;&#x2F; 记住 return o1-o2; 是升序  return o2-o1; 是降序，就算是复杂元素的比较也会被拆解为若干个基本类型的比较</span><br><span class="line">                if (o1[1]&#x3D;&#x3D;o2[1])return o2[0]-o1[0];</span><br><span class="line">                &#x2F;&#x2F; 否则返回每个子数组第1个元素的降序排列</span><br><span class="line">                return o2[1]-o1[1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
 
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ul>
+<li><p>都是接口，Comparable需要被某个类实现并在内部重写方法，Comparator可通过传参的方式在外部实现排序功能。</p>
+</li>
+<li><p>Comparable功能强大，可以为自定义类的自然排序乃至定制排序提供需要的排序功能，在涉及自定义类的多个属性的复杂规则的排序情况中，是更好的选择。</p>
+</li>
+<li><p>Comparator更为灵活，自已在不修改自定义类的定义的情况下进行类外的排序，符合开闭原则</p>
+</li>
+<li><p>总而言之，还是需要根据场景，仔细考量两者带来的收益与风险，选择更为合适的方法完成排序功能</p>
+</li>
+</ul>
 
-
-<h4 id="1-2-1-安装淘宝镜像源，确保包下载速度"><a href="#1-2-1-安装淘宝镜像源，确保包下载速度" class="headerlink" title="1.2.1 安装淘宝镜像源，确保包下载速度"></a>1.2.1 安装淘宝镜像源，确保包下载速度</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm -- registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<h5 id="g-全局安装-registry表示指向的淘宝镜像源地址"><a href="#g-全局安装-registry表示指向的淘宝镜像源地址" class="headerlink" title="-g 全局安装 registry表示指向的淘宝镜像源地址"></a>-g 全局安装 registry表示指向的淘宝镜像源地址</h5><h4 id="1-2-2使用cnpm安装hexo-cli"><a href="#1-2-2使用cnpm安装hexo-cli" class="headerlink" title="1.2.2使用cnpm安装hexo-cli"></a>1.2.2使用cnpm安装hexo-cli</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3-在当前目录下，创建你的博客项目文件夹"><a href="#3-在当前目录下，创建你的博客项目文件夹" class="headerlink" title="3.在当前目录下，创建你的博客项目文件夹"></a>3.在当前目录下，创建你的博客项目文件夹</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog</span><br></pre></td></tr></table></figure>
-
-<p>出错之后，可以删除该文件夹直接重来，没有关系</p>
-<h2 id="2-初始化博客"><a href="#2-初始化博客" class="headerlink" title="2.初始化博客"></a>2.初始化博客</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2-1-初始化一个hexo博客"><a href="#2-1-初始化一个hexo博客" class="headerlink" title="2.1.初始化一个hexo博客"></a>2.1.初始化一个hexo博客</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo hexo init</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="这里会使用到git没有安装过的需要去git官网（添加链接）进行安装安装完成后，出现"><a href="#这里会使用到git没有安装过的需要去git官网（添加链接）进行安装安装完成后，出现" class="headerlink" title="这里会使用到git没有安装过的需要去git官网（添加链接）进行安装安装完成后，出现"></a>这里会使用到git没有安装过的需要去git官网（添加链接）进行安装安装完成后，出现</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Info Start blogging with Hexo!</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2-2-本地启动Hexo"><a href="#2-2-本地启动Hexo" class="headerlink" title="2.2.本地启动Hexo"></a>2.2.本地启动Hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="默认会在本地的4000端口给你启动一个hexo进程，从浏览器打开，里面会有一篇默认生成的hexo博客文章-该命令可用在后续写好的博客进行生成预览"><a href="#默认会在本地的4000端口给你启动一个hexo进程，从浏览器打开，里面会有一篇默认生成的hexo博客文章-该命令可用在后续写好的博客进行生成预览" class="headerlink" title="默认会在本地的4000端口给你启动一个hexo进程，从浏览器打开，里面会有一篇默认生成的hexo博客文章,该命令可用在后续写好的博客进行生成预览"></a>默认会在本地的4000端口给你启动一个hexo进程，从浏览器打开，里面会有一篇默认生成的hexo博客文章,该命令可用在后续写好的博客进行生成预览</h4><h2 id="3-写博客"><a href="#3-写博客" class="headerlink" title="3.写博客"></a>3.写博客</h2><h3 id="3-1-退出hexo"><a href="#3-1-退出hexo" class="headerlink" title="3.1.退出hexo"></a>3.1.退出hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ Ctrl C</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3-2-执行创建博客命令"><a href="#3-2-执行创建博客命令" class="headerlink" title="3.2.执行创建博客命令"></a>3.2.执行创建博客命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n 你的文章标题</span><br></pre></td></tr></table></figure>
-
-<h4 id="hexo会按照你给的题目在source-posts-路径下新建一个md文本-其实也可以直接在外部的markdown编辑器写好-md文件放入该路径"><a href="#hexo会按照你给的题目在source-posts-路径下新建一个md文本-其实也可以直接在外部的markdown编辑器写好-md文件放入该路径" class="headerlink" title="hexo会按照你给的题目在source/_posts/路径下新建一个md文本(其实也可以直接在外部的markdown编辑器写好.md文件放入该路径)"></a>hexo会按照你给的题目在source/_posts/路径下新建一个md文本(其实也可以直接在外部的markdown编辑器写好.md文件放入该路径)</h4><h3 id="3-3-vim开启编辑一下你的文章"><a href="#3-3-vim开启编辑一下你的文章" class="headerlink" title="3.3.vim开启编辑一下你的文章"></a>3.3.vim开启编辑一下你的文章</h3><h4 id="键入-esc-wq-保存并退出"><a href="#键入-esc-wq-保存并退出" class="headerlink" title="键入 esc + : + wq 保存并退出"></a>键入 esc + : + wq 保存并退出</h4><h4 id="cd-从-posts目录返回hexo目录"><a href="#cd-从-posts目录返回hexo目录" class="headerlink" title="cd../..从_posts目录返回hexo目录"></a>cd../..从_posts目录返回hexo目录</h4><h3 id="3-4-删除原有数据并重新生成新的hexo内容"><a href="#3-4-删除原有数据并重新生成新的hexo内容" class="headerlink" title="3 .4.删除原有数据并重新生成新的hexo内容"></a>3 .4.删除原有数据并重新生成新的hexo内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="3-5-重新启动hexo，你就能看见自己的新建的博客了"><a href="#3-5-重新启动hexo，你就能看见自己的新建的博客了" class="headerlink" title="3.5.重新启动hexo，你就能看见自己的新建的博客了"></a>3.5.重新启动hexo，你就能看见自己的新建的博客了</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-
-
-
-
-<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><h3 id="可以开始着手熟悉md语法，一个是自己去学语法本身，再有就是多看大牛的技术博客，人家的分享内容和优美的格式都是你学习的对象"><a href="#可以开始着手熟悉md语法，一个是自己去学语法本身，再有就是多看大牛的技术博客，人家的分享内容和优美的格式都是你学习的对象" class="headerlink" title="可以开始着手熟悉md语法，一个是自己去学语法本身，再有就是多看大牛的技术博客，人家的分享内容和优美的格式都是你学习的对象"></a>可以开始着手熟悉md语法，一个是自己去学语法本身，再有就是多看大牛的技术博客，人家的分享内容和优美的格式都是你学习的对象</h3><h2 id="4-个人博客部署到远端-该方法免费"><a href="#4-个人博客部署到远端-该方法免费" class="headerlink" title="4.个人博客部署到远端(该方法免费)"></a>4.个人博客部署到远端(该方法免费)</h2><h3 id="4-1-将我们的博客部署到GitHub上"><a href="#4-1-将我们的博客部署到GitHub上" class="headerlink" title="4.1.将我们的博客部署到GitHub上"></a>4.1.将我们的博客部署到GitHub上</h3><h4 id="登录GitHub-创建一个新的仓库-这里注意：用户部署个人博客的GitHub仓库的命名必须符合特定要求（用户名-github-io）"><a href="#登录GitHub-创建一个新的仓库-这里注意：用户部署个人博客的GitHub仓库的命名必须符合特定要求（用户名-github-io）" class="headerlink" title="登录GitHub 创建一个新的仓库    这里注意：用户部署个人博客的GitHub仓库的命名必须符合特定要求（用户名.github.io）"></a>登录GitHub 创建一个新的仓库    这里注意：用户部署个人博客的GitHub仓库的命名必须符合特定要求（用户名.github.io）</h4><h3 id="4-2-返回命名行窗口，安装hexo的git部署插件"><a href="#4-2-返回命名行窗口，安装hexo的git部署插件" class="headerlink" title="4.2.返回命名行窗口，安装hexo的git部署插件"></a>4.2.返回命名行窗口，安装hexo的git部署插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="4-3-设置-config-yml文件（blog目录下）"><a href="#4-3-设置-config-yml文件（blog目录下）" class="headerlink" title="4.3.设置_config.yml文件（blog目录下）"></a>4.3.设置_config.yml文件（blog目录下）</h3><h4 id="找到deployer字段，在下方添加"><a href="#找到deployer字段，在下方添加" class="headerlink" title="找到deployer字段，在下方添加"></a>找到deployer字段，在下方添加</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">type</span>:git</span><br><span class="line">$ repo:用户名.github.io（你的git仓库地址）</span><br><span class="line">$ branch:master(指定你的分支，一般来说是master)</span><br></pre></td></tr></table></figure>
-
-<h4 id="保存退出"><a href="#保存退出" class="headerlink" title="保存退出"></a>保存退出</h4><h3 id="4-4-执行hexo-d（d表示deploy-部署）"><a href="#4-4-执行hexo-d（d表示deploy-部署）" class="headerlink" title="4.4.执行hexo d（d表示deploy 部署）"></a>4.4.执行hexo d（d表示deploy 部署）</h3><h4 id="此时会提示你输入github账户和密码然后就能将其部署成功"><a href="#此时会提示你输入github账户和密码然后就能将其部署成功" class="headerlink" title="此时会提示你输入github账户和密码然后就能将其部署成功"></a>此时会提示你输入github账户和密码然后就能将其部署成功</h4><h3 id="4-5-此时你的GitHub仓库里就会添加你此次部署hexo新增的内容"><a href="#4-5-此时你的GitHub仓库里就会添加你此次部署hexo新增的内容" class="headerlink" title="4.5.此时你的GitHub仓库里就会添加你此次部署hexo新增的内容"></a>4.5.此时你的GitHub仓库里就会添加你此次部署hexo新增的内容</h3><h3 id="4-6-访问已部署的博客"><a href="#4-6-访问已部署的博客" class="headerlink" title="4.6.访问已部署的博客"></a>4.6.访问已部署的博客</h3><p><a href="https://xiaopang1230.github.io" target="_blank" rel="noopener">https://xiaopang1230.github.io</a></p>
-<p>就可以看到你部署在github上的hexo博客啦~！</p>
-<h2 id="5-主题更换"><a href="#5-主题更换" class="headerlink" title="5.主题更换"></a>5.主题更换</h2><h3 id="推荐主题仓库："><a href="#推荐主题仓库：" class="headerlink" title="推荐主题仓库："></a>推荐主题仓库：</h3><h4 id="github-com-litten-hexo-theme-yilia"><a href="#github-com-litten-hexo-theme-yilia" class="headerlink" title="github.com/litten/hexo-theme-yilia"></a>github.com/litten/hexo-theme-yilia</h4><h3 id="5-1-进入blog目录，将该主题下载到主题文件夹theme下面"><a href="#5-1-进入blog目录，将该主题下载到主题文件夹theme下面" class="headerlink" title="5.1.进入blog目录，将该主题下载到主题文件夹theme下面"></a>5.1.进入blog目录，将该主题下载到主题文件夹theme下面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/litten/hexo-theme-yilia themes/yilia</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="5-2-修改-config-yml下的theme，-Extension字段的theme的值，从landscape改为yilia"><a href="#5-2-修改-config-yml下的theme，-Extension字段的theme的值，从landscape改为yilia" class="headerlink" title="5.2.修改_config.yml下的theme， Extension字段的theme的值，从landscape改为yilia"></a>5.2.修改_config.yml下的theme， Extension字段的theme的值，从landscape改为yilia</h3><h3 id="5-3-执行hexo-clean-hexo-g-重新生成新的主题的md文件"><a href="#5-3-执行hexo-clean-hexo-g-重新生成新的主题的md文件" class="headerlink" title="5.3.执行hexo clean hexo g    重新生成新的主题的md文件"></a>5.3.执行hexo clean hexo g    重新生成新的主题的md文件</h3><h3 id="5-4-hexo-s-本地启动预览一下-hexo-d确认无误后部署到GitHub上"><a href="#5-4-hexo-s-本地启动预览一下-hexo-d确认无误后部署到GitHub上" class="headerlink" title="5.4.hexo s 本地启动预览一下 hexo d确认无误后部署到GitHub上"></a>5.4.hexo s 本地启动预览一下 hexo d确认无误后部署到GitHub上</h3><h3 id="注意：修改主题后并不是立刻生效，耐心等一会"><a href="#注意：修改主题后并不是立刻生效，耐心等一会" class="headerlink" title="注意：修改主题后并不是立刻生效，耐心等一会"></a>注意：修改主题后并不是立刻生效，耐心等一会</h3>
       
 
       
@@ -315,7 +321,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/17/hexo%E5%8D%9A%E5%AE%A2%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94hexo+yilia/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/21/JavaTips01%E2%80%94%E2%80%94Java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AF%94%E8%BE%83%E7%9A%84%E5%AE%9E%E7%8E%B0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -329,18 +335,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/04/21/Vue+Django%E8%A1%A8%E5%8D%95%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/04/21/CS-Notes:Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E6%A0%91/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Vue+Django表单发送文件
+          CS-Notes:Leetcode 题解 - 树
         
       </div>
     </a>
   
   
-    <a href="/2020/04/15/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BC%80%E5%8F%91/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">前后端分离开发</div>
+    <a href="/2020/04/21/Vue+Django%E8%A1%A8%E5%8D%95%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vue+Django表单发送文件</div>
       <i class="icon-circle-right"></i>
     </a>
   

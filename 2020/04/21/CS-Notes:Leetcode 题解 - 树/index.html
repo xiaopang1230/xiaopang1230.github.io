@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>hexo博客实战——hexo+yilia | SimonYi&#39;s Blog</title>
+  <title>CS-Notes:Leetcode 题解 - 树 | SimonYi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="实战视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Yb411a7ty1.部署环境1.1.安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）1.2.Mac打开终端，切换到root权限1sudo su    1.2.1 安装淘宝镜像源，确保包下载速度1npm install -g cnpm -- registry&#x3D;https:&#x2F;&#x2F;registry">
+  <meta name="description" content="CS-Notes&#x2F;Leetcode 题解 - 树 首先感谢CyC2018的详细笔记，这段时间受益匪浅，从一个更高的角度知道了数据结构与算法的关系——算法依赖于数据结构，就像是建筑材料与设计图纸的关系，特定的材料适合于实现某种独特的设计，一些材料可以实现许多设计方案，但是在价格、耐久度、美观方面各有优劣。  我们学习算法与数据结构的过程，不仅仅要认识数据结构的用途、算法的用途，更要在题海翻腾出感觉之">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo博客实战——hexo+yilia">
-<meta property="og:url" content="http://yoursite.com/2020/04/17/hexo%E5%8D%9A%E5%AE%A2%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94hexo+yilia/index.html">
+<meta property="og:title" content="CS-Notes:Leetcode 题解 - 树">
+<meta property="og:url" content="http://yoursite.com/2020/04/21/CS-Notes:Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E6%A0%91/index.html">
 <meta property="og:site_name" content="SimonYi&#39;s Blog">
-<meta property="og:description" content="实战视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Yb411a7ty1.部署环境1.1.安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）1.2.Mac打开终端，切换到root权限1sudo su    1.2.1 安装淘宝镜像源，确保包下载速度1npm install -g cnpm -- registry&#x3D;https:&#x2F;&#x2F;registry">
+<meta property="og:description" content="CS-Notes&#x2F;Leetcode 题解 - 树 首先感谢CyC2018的详细笔记，这段时间受益匪浅，从一个更高的角度知道了数据结构与算法的关系——算法依赖于数据结构，就像是建筑材料与设计图纸的关系，特定的材料适合于实现某种独特的设计，一些材料可以实现许多设计方案，但是在价格、耐久度、美观方面各有优劣。  我们学习算法与数据结构的过程，不仅仅要认识数据结构的用途、算法的用途，更要在题海翻腾出感觉之">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-17T02:58:58.609Z">
-<meta property="article:modified_time" content="2020-04-17T02:58:58.609Z">
+<meta property="article:published_time" content="2020-04-21T14:55:17.007Z">
+<meta property="article:modified_time" content="2020-04-21T14:55:17.007Z">
 <meta property="article:author" content="Simon Yi">
 <meta name="twitter:card" content="summary">
   
@@ -158,85 +158,73 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hexo博客实战——hexo+yilia" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-CS-Notes:Leetcode 题解 - 树" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      hexo博客实战——hexo+yilia
+      CS-Notes:Leetcode 题解 - 树
     </h1>
   
 
         
-        <a href="/2020/04/17/hexo%E5%8D%9A%E5%AE%A2%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94hexo+yilia/" class="archive-article-date">
-  	<time datetime="2020-04-17T02:58:58.609Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
+        <a href="/2020/04/21/CS-Notes:Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E6%A0%91/" class="archive-article-date">
+  	<time datetime="2020-04-21T14:55:17.007Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="实战视频地址：https-www-bilibili-com-video-BV1Yb411a7ty"><a href="#实战视频地址：https-www-bilibili-com-video-BV1Yb411a7ty" class="headerlink" title="实战视频地址：https://www.bilibili.com/video/BV1Yb411a7ty"></a><strong>实战视频地址：</strong><a href="https://www.bilibili.com/video/BV1Yb411a7ty" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1Yb411a7ty</a></h3><h2 id="1-部署环境"><a href="#1-部署环境" class="headerlink" title="1.部署环境"></a>1.部署环境</h2><h3 id="1-1-安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）"><a href="#1-1-安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）" class="headerlink" title="1.1.安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）"></a>1.1.安装nodeJS（包含nodejs本身和npm包管理器，是搭建博客的基础）</h3><h3 id="1-2-Mac打开终端，切换到root权限"><a href="#1-2-Mac打开终端，切换到root权限" class="headerlink" title="1.2.Mac打开终端，切换到root权限"></a>1.2.Mac打开终端，切换到root权限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
+        <p>CS-Notes/Leetcode 题解 - 树</p>
+<pre><code>首先感谢CyC2018的详细笔记，这段时间受益匪浅，从一个更高的角度知道了数据结构与算法的关系——算法依赖于数据结构，就像是建筑材料与设计图纸的关系，特定的材料适合于实现某种独特的设计，一些材料可以实现许多设计方案，但是在价格、耐久度、美观方面各有优劣。
 
+我们学习算法与数据结构的过程，不仅仅要认识数据结构的用途、算法的用途，更要在题海翻腾出感觉之后，去思考其之间的联系，去尝试着从问题的角度出发，考虑可行的算法中最为高效的那种，再考虑实现该算法的结构中空间复杂度最低的那一种。当你养成这种习惯去做题，乃至思考，你就会发现其中的乐趣的~
 
+先从最基本的数据结构之一——树开始讲起吧~</code></pre><p>定义<br>    树（树状图），是一种数据结构，由n(n&gt;=0)个有限节点组成的一个无环且有层次结构的集合。每个结点有零个或多个子结点；没有父结点的结点称为根结点；每一个非根结点有且只有一个父结点；除了根结点外，每个子结点可以分为多个不相交的子树。</p>
+<p>树的特性——递归<br>    无论是二叉树还是多叉树，都会有一个很明显的特点——递归性，也就是说我们无论去看哪一个树的任意一个节点，自其往下仍旧组成一棵树。也就是说我们如果能够定义一种方法，将所有类型的树（空树、左右子树均为空、仅单边子树为空、左右子树都不为空）的情况都考虑进去，那这个方法就能递归地调用自身，通过若干次递归实现对这棵树的每一棵子树的进行相同的操作——统计、打印、查询、判定乃至改变其自身结构等等。</p>
+<p>树的题型（用途）<br>1.递归（实现判定、统计、查询）<br>2.遍历（递归与非递归方式）<br>3.特殊树结构的用法<br>    3.1.BST<br>    3.2.Trie</p>
+<p>1.递归<br>    树的递归题型，更多的是让我们对其特有结构带来的递归特性有一个直观而全面的认识，培养自己的递归思维意识。一开始拿到树的递归题目，你可能会束手无策，这主要是你还没有养成“只看一棵树”。接下来我们从最近公共祖先这道题开始，学习这种思维模式。</p>
+<p>LeetCode 面试题68-II<br>接下来的这张图，就是我们求解递归问题的一棵树模型——根节点root,左子树left,右子树right</p>
+<p>“一棵树”<br>需要求解p、q的最近公共祖先，我们就尝试从pq节点存在于这棵树的位置的不同来进行分类讨论</p>
+<pre><code>1.永远先考虑root是否为null，即使题目要求里面说了树不为空，你的递归仍然有可能不可避免的要到达叶子节点的左右子树，一旦你的递归终止条件需要靠判定节点是否为空来完成的话，就一定要考虑root为null的情况。显然，这里当root == null 时，显然这三部分都没有我们要的最近公共祖先，我们对这样的root返回null。
 
-<h4 id="1-2-1-安装淘宝镜像源，确保包下载速度"><a href="#1-2-1-安装淘宝镜像源，确保包下载速度" class="headerlink" title="1.2.1 安装淘宝镜像源，确保包下载速度"></a>1.2.1 安装淘宝镜像源，确保包下载速度</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm -- registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+我们需要求解的是pq的公共祖先，就这个目标来讲，pq的优先级是相同的，所以我们在分析的时候尝试用：一个目标节点，另一个目标节点来思考，避免陷入无意义的对称分析之中。</code></pre><p>2.对于非空节点root，只有两种情况——是一个目标节点（p或q），不是目标节点</p>
+<pre><code>2.1.如果它是某一个目标节点，那么另一个目标节点一定在左子树或者右子树上。这里说明一下，因为我们是从根节点开始逐层向下递归，所以遇到的第一个p或者q，剩下的节点只可能在root下面，此时root就是我们需要求解的最近公共祖先
 
-<h5 id="g-全局安装-registry表示指向的淘宝镜像源地址"><a href="#g-全局安装-registry表示指向的淘宝镜像源地址" class="headerlink" title="-g 全局安装 registry表示指向的淘宝镜像源地址"></a>-g 全局安装 registry表示指向的淘宝镜像源地址</h5><h4 id="1-2-2使用cnpm安装hexo-cli"><a href="#1-2-2使用cnpm安装hexo-cli" class="headerlink" title="1.2.2使用cnpm安装hexo-cli"></a>1.2.2使用cnpm安装hexo-cli</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+2.2.如果它不是目标节点，那么pq就存在三种可能——a)左右子树上各一个    b)左子树或者右子树上独占两个    c)左右子树上都没有目标节点，此时我们递归地去求解左子树、右子树，将返回结果保存下来，如果一棵子树上没有pq，那么一定会返回null，反之返回值为p或者q
 
+        对于情况a)，显然root就是我们要求解的结果；
 
+        对于情况b), 以上递归的返回结果一定有一个为空，另一个返回的就是含有p、q的子树的递归结果；
 
-<h3 id="3-在当前目录下，创建你的博客项目文件夹"><a href="#3-在当前目录下，创建你的博客项目文件夹" class="headerlink" title="3.在当前目录下，创建你的博客项目文件夹"></a>3.在当前目录下，创建你的博客项目文件夹</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog</span><br></pre></td></tr></table></figure>
+        对于情况c), 很显然这一整棵树都不是我们要求解的树，直接返回null就行</code></pre><p>补充：虽然题目没有明确说明pq是否可以为空，本着全面思考的方针，在进行一个补充讨论——pq只要有任意一个为空，最有求解的结果一定是空</p>
+<p>代码：</p>
+<p> public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {</p>
+<pre><code>if(root == null || p == null || q == null)return null;
 
-<p>出错之后，可以删除该文件夹直接重来，没有关系</p>
-<h2 id="2-初始化博客"><a href="#2-初始化博客" class="headerlink" title="2.初始化博客"></a>2.初始化博客</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br></pre></td></tr></table></figure>
+if(root == p || root == q)return root;
 
+TreeNode leftResult = lowestCommonAncestor(root.left, p, q);
 
+TreeNode rightResult = lowestCommonAncestor(root.right, p ,q);
 
-<h3 id="2-1-初始化一个hexo博客"><a href="#2-1-初始化一个hexo博客" class="headerlink" title="2.1.初始化一个hexo博客"></a>2.1.初始化一个hexo博客</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo hexo init</span><br></pre></td></tr></table></figure>
+if(leftResult != null &amp;&amp; rightResult != null)return root;
 
+else{
 
+    if(leftResult == null)return rightResult;
 
-<h4 id="这里会使用到git没有安装过的需要去git官网（添加链接）进行安装安装完成后，出现"><a href="#这里会使用到git没有安装过的需要去git官网（添加链接）进行安装安装完成后，出现" class="headerlink" title="这里会使用到git没有安装过的需要去git官网（添加链接）进行安装安装完成后，出现"></a>这里会使用到git没有安装过的需要去git官网（添加链接）进行安装安装完成后，出现</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Info Start blogging with Hexo!</span><br></pre></td></tr></table></figure>
+    if(rightResult == null)return leftResult;
 
+}
 
+return null;</code></pre><p>}</p>
+<pre><code>总结：先分析根节点root的所有情况，能在root处进行返回的要提前返回，不能的再交由左右子树的递归去解决，只分析这三个部分，递归的分析就用简写的函数表达式代替就行（默认你已经实现了递归，直接调用）。
 
-<h3 id="2-2-本地启动Hexo"><a href="#2-2-本地启动Hexo" class="headerlink" title="2.2.本地启动Hexo"></a>2.2.本地启动Hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="默认会在本地的4000端口给你启动一个hexo进程，从浏览器打开，里面会有一篇默认生成的hexo博客文章-该命令可用在后续写好的博客进行生成预览"><a href="#默认会在本地的4000端口给你启动一个hexo进程，从浏览器打开，里面会有一篇默认生成的hexo博客文章-该命令可用在后续写好的博客进行生成预览" class="headerlink" title="默认会在本地的4000端口给你启动一个hexo进程，从浏览器打开，里面会有一篇默认生成的hexo博客文章,该命令可用在后续写好的博客进行生成预览"></a>默认会在本地的4000端口给你启动一个hexo进程，从浏览器打开，里面会有一篇默认生成的hexo博客文章,该命令可用在后续写好的博客进行生成预览</h4><h2 id="3-写博客"><a href="#3-写博客" class="headerlink" title="3.写博客"></a>3.写博客</h2><h3 id="3-1-退出hexo"><a href="#3-1-退出hexo" class="headerlink" title="3.1.退出hexo"></a>3.1.退出hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ Ctrl C</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3-2-执行创建博客命令"><a href="#3-2-执行创建博客命令" class="headerlink" title="3.2.执行创建博客命令"></a>3.2.执行创建博客命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n 你的文章标题</span><br></pre></td></tr></table></figure>
-
-<h4 id="hexo会按照你给的题目在source-posts-路径下新建一个md文本-其实也可以直接在外部的markdown编辑器写好-md文件放入该路径"><a href="#hexo会按照你给的题目在source-posts-路径下新建一个md文本-其实也可以直接在外部的markdown编辑器写好-md文件放入该路径" class="headerlink" title="hexo会按照你给的题目在source/_posts/路径下新建一个md文本(其实也可以直接在外部的markdown编辑器写好.md文件放入该路径)"></a>hexo会按照你给的题目在source/_posts/路径下新建一个md文本(其实也可以直接在外部的markdown编辑器写好.md文件放入该路径)</h4><h3 id="3-3-vim开启编辑一下你的文章"><a href="#3-3-vim开启编辑一下你的文章" class="headerlink" title="3.3.vim开启编辑一下你的文章"></a>3.3.vim开启编辑一下你的文章</h3><h4 id="键入-esc-wq-保存并退出"><a href="#键入-esc-wq-保存并退出" class="headerlink" title="键入 esc + : + wq 保存并退出"></a>键入 esc + : + wq 保存并退出</h4><h4 id="cd-从-posts目录返回hexo目录"><a href="#cd-从-posts目录返回hexo目录" class="headerlink" title="cd../..从_posts目录返回hexo目录"></a>cd../..从_posts目录返回hexo目录</h4><h3 id="3-4-删除原有数据并重新生成新的hexo内容"><a href="#3-4-删除原有数据并重新生成新的hexo内容" class="headerlink" title="3 .4.删除原有数据并重新生成新的hexo内容"></a>3 .4.删除原有数据并重新生成新的hexo内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="3-5-重新启动hexo，你就能看见自己的新建的博客了"><a href="#3-5-重新启动hexo，你就能看见自己的新建的博客了" class="headerlink" title="3.5.重新启动hexo，你就能看见自己的新建的博客了"></a>3.5.重新启动hexo，你就能看见自己的新建的博客了</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-
-
-
-
-<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><h3 id="可以开始着手熟悉md语法，一个是自己去学语法本身，再有就是多看大牛的技术博客，人家的分享内容和优美的格式都是你学习的对象"><a href="#可以开始着手熟悉md语法，一个是自己去学语法本身，再有就是多看大牛的技术博客，人家的分享内容和优美的格式都是你学习的对象" class="headerlink" title="可以开始着手熟悉md语法，一个是自己去学语法本身，再有就是多看大牛的技术博客，人家的分享内容和优美的格式都是你学习的对象"></a>可以开始着手熟悉md语法，一个是自己去学语法本身，再有就是多看大牛的技术博客，人家的分享内容和优美的格式都是你学习的对象</h3><h2 id="4-个人博客部署到远端-该方法免费"><a href="#4-个人博客部署到远端-该方法免费" class="headerlink" title="4.个人博客部署到远端(该方法免费)"></a>4.个人博客部署到远端(该方法免费)</h2><h3 id="4-1-将我们的博客部署到GitHub上"><a href="#4-1-将我们的博客部署到GitHub上" class="headerlink" title="4.1.将我们的博客部署到GitHub上"></a>4.1.将我们的博客部署到GitHub上</h3><h4 id="登录GitHub-创建一个新的仓库-这里注意：用户部署个人博客的GitHub仓库的命名必须符合特定要求（用户名-github-io）"><a href="#登录GitHub-创建一个新的仓库-这里注意：用户部署个人博客的GitHub仓库的命名必须符合特定要求（用户名-github-io）" class="headerlink" title="登录GitHub 创建一个新的仓库    这里注意：用户部署个人博客的GitHub仓库的命名必须符合特定要求（用户名.github.io）"></a>登录GitHub 创建一个新的仓库    这里注意：用户部署个人博客的GitHub仓库的命名必须符合特定要求（用户名.github.io）</h4><h3 id="4-2-返回命名行窗口，安装hexo的git部署插件"><a href="#4-2-返回命名行窗口，安装hexo的git部署插件" class="headerlink" title="4.2.返回命名行窗口，安装hexo的git部署插件"></a>4.2.返回命名行窗口，安装hexo的git部署插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="4-3-设置-config-yml文件（blog目录下）"><a href="#4-3-设置-config-yml文件（blog目录下）" class="headerlink" title="4.3.设置_config.yml文件（blog目录下）"></a>4.3.设置_config.yml文件（blog目录下）</h3><h4 id="找到deployer字段，在下方添加"><a href="#找到deployer字段，在下方添加" class="headerlink" title="找到deployer字段，在下方添加"></a>找到deployer字段，在下方添加</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">type</span>:git</span><br><span class="line">$ repo:用户名.github.io（你的git仓库地址）</span><br><span class="line">$ branch:master(指定你的分支，一般来说是master)</span><br></pre></td></tr></table></figure>
-
-<h4 id="保存退出"><a href="#保存退出" class="headerlink" title="保存退出"></a>保存退出</h4><h3 id="4-4-执行hexo-d（d表示deploy-部署）"><a href="#4-4-执行hexo-d（d表示deploy-部署）" class="headerlink" title="4.4.执行hexo d（d表示deploy 部署）"></a>4.4.执行hexo d（d表示deploy 部署）</h3><h4 id="此时会提示你输入github账户和密码然后就能将其部署成功"><a href="#此时会提示你输入github账户和密码然后就能将其部署成功" class="headerlink" title="此时会提示你输入github账户和密码然后就能将其部署成功"></a>此时会提示你输入github账户和密码然后就能将其部署成功</h4><h3 id="4-5-此时你的GitHub仓库里就会添加你此次部署hexo新增的内容"><a href="#4-5-此时你的GitHub仓库里就会添加你此次部署hexo新增的内容" class="headerlink" title="4.5.此时你的GitHub仓库里就会添加你此次部署hexo新增的内容"></a>4.5.此时你的GitHub仓库里就会添加你此次部署hexo新增的内容</h3><h3 id="4-6-访问已部署的博客"><a href="#4-6-访问已部署的博客" class="headerlink" title="4.6.访问已部署的博客"></a>4.6.访问已部署的博客</h3><p><a href="https://xiaopang1230.github.io" target="_blank" rel="noopener">https://xiaopang1230.github.io</a></p>
-<p>就可以看到你部署在github上的hexo博客啦~！</p>
-<h2 id="5-主题更换"><a href="#5-主题更换" class="headerlink" title="5.主题更换"></a>5.主题更换</h2><h3 id="推荐主题仓库："><a href="#推荐主题仓库：" class="headerlink" title="推荐主题仓库："></a>推荐主题仓库：</h3><h4 id="github-com-litten-hexo-theme-yilia"><a href="#github-com-litten-hexo-theme-yilia" class="headerlink" title="github.com/litten/hexo-theme-yilia"></a>github.com/litten/hexo-theme-yilia</h4><h3 id="5-1-进入blog目录，将该主题下载到主题文件夹theme下面"><a href="#5-1-进入blog目录，将该主题下载到主题文件夹theme下面" class="headerlink" title="5.1.进入blog目录，将该主题下载到主题文件夹theme下面"></a>5.1.进入blog目录，将该主题下载到主题文件夹theme下面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/litten/hexo-theme-yilia themes/yilia</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="5-2-修改-config-yml下的theme，-Extension字段的theme的值，从landscape改为yilia"><a href="#5-2-修改-config-yml下的theme，-Extension字段的theme的值，从landscape改为yilia" class="headerlink" title="5.2.修改_config.yml下的theme， Extension字段的theme的值，从landscape改为yilia"></a>5.2.修改_config.yml下的theme， Extension字段的theme的值，从landscape改为yilia</h3><h3 id="5-3-执行hexo-clean-hexo-g-重新生成新的主题的md文件"><a href="#5-3-执行hexo-clean-hexo-g-重新生成新的主题的md文件" class="headerlink" title="5.3.执行hexo clean hexo g    重新生成新的主题的md文件"></a>5.3.执行hexo clean hexo g    重新生成新的主题的md文件</h3><h3 id="5-4-hexo-s-本地启动预览一下-hexo-d确认无误后部署到GitHub上"><a href="#5-4-hexo-s-本地启动预览一下-hexo-d确认无误后部署到GitHub上" class="headerlink" title="5.4.hexo s 本地启动预览一下 hexo d确认无误后部署到GitHub上"></a>5.4.hexo s 本地启动预览一下 hexo d确认无误后部署到GitHub上</h3><h3 id="注意：修改主题后并不是立刻生效，耐心等一会"><a href="#注意：修改主题后并不是立刻生效，耐心等一会" class="headerlink" title="注意：修改主题后并不是立刻生效，耐心等一会"></a>注意：修改主题后并不是立刻生效，耐心等一会</h3>
+结尾再分享一个关于该题的视频，本文的分析思路也源于此，所谓吃透题目，就是掌握树的递归特性和“一棵树”模型的思维模式。</code></pre>
       
 
       
@@ -315,7 +303,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/17/hexo%E5%8D%9A%E5%AE%A2%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94hexo+yilia/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/21/CS-Notes:Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E6%A0%91/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -329,18 +317,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/04/21/Vue+Django%E8%A1%A8%E5%8D%95%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/04/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B001%E2%80%94%E2%80%94%E6%AD%BB%E9%94%81/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Vue+Django表单发送文件
+          操作系统笔记01——死锁
         
       </div>
     </a>
   
   
-    <a href="/2020/04/15/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BC%80%E5%8F%91/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">前后端分离开发</div>
+    <a href="/2020/04/21/JavaTips01%E2%80%94%E2%80%94Java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AF%94%E8%BE%83%E7%9A%84%E5%AE%9E%E7%8E%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaTips01——Java自定义比较的实现</div>
       <i class="icon-circle-right"></i>
     </a>
   
